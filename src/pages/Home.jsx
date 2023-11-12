@@ -1,7 +1,11 @@
+import Banner from "../components/Home/Banner";
+import FoodSlider from "../components/Home/FoodSlider";
+
 const Home = () => {
   return (
     <div>
-      <h3>thi sis home</h3>
+      <Banner></Banner>
+      <FoodSlider></FoodSlider>
     </div>
   );
 };
