@@ -1,9 +1,9 @@
 import SectionHeading from "../SectionHeading";
 import useMenuData from "../../hooks/useMenuData";
 
-const OurMenu = () => {
+const OurMenu = ({ category }) => {
   const [menu] = useMenuData();
-  const popular = menu.filter((data) => data.category === "popular");
+  const popular = menu.filter((data) => data.category === category);
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -35,6 +35,10 @@ const OurMenu = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="flex flex-col items-center mt-12 ">
+        <button className="btn btn-outline border-b-4">view full menu</button>
       </div>
     </div>
   );

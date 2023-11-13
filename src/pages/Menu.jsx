@@ -5,6 +5,9 @@ const Menu = () => {
     return (
         <div>
             <SectionCover></SectionCover>
+
+
+            
         </div>
     );
 };
