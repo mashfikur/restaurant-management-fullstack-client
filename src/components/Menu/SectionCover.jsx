@@ -1,19 +1,43 @@
-import bg1 from "../../assets/menu/banner3.jpg";
+import PropTypes from "prop-types";
 
-const SectionCover = () => {
+const SectionCover = ({ main, title, desc, img }) => {
   return (
     <div>
       <div
-        style={{ backgroundImage: `url(${bg1})` }}
-        className={`section-cover h-[50rem] bg-center bg-cover flex flex-col items-center justify-center `}
+        style={{ backgroundImage: `url(${img})` }}
+        className={`section-cover ${
+          main ? "h-[50rem]" : "h-[43rem]"
+        } bg-center bg-cover flex flex-col items-center justify-center ${
+          main || "px-[24rem]"
+        } `}
       >
-        <div className="text-center bg-black py-36 px-[24rem] text-white bg-opacity-40">
-          <h3 className=" text-[5rem] font-cinzel  font-bold"> Our Menu </h3>
-          <p className="font-cinzel text-xl">Would you like to try a dish?</p>
+        <div
+          className={`text-center bg-black py-36 ${
+            main && "px-[24rem]"
+          }  text-white bg-opacity-40 capitalize`}
+        >
+          <h3
+            className={`  ${
+              main ? "text-[5rem]" : "text-4xl"
+            } font-cinzel  font-bold`}
+          >
+            {" "}
+            {title}{" "}
+          </h3>
+          <p className={`font-cinzel ${main ? "text-xl" : "text-base"}`}>
+            {desc}
+          </p>
         </div>
       </div>
     </div>
   );
+};
+
+SectionCover.propTypes = {
+  main: PropTypes.bool,
+  img: PropTypes.string,
+  title: PropTypes.string,
+  desc: PropTypes.string,
 };
 
 export default SectionCover;
