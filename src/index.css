@@ -22,10 +22,17 @@ body {
 .carousel .thumbs-wrapper {
   text-align: center;
   margin: 20px auto !important;
-  
 }
 
 .carousel img {
   max-height: 50rem;
   object-fit: cover;
+}
+
+.boss-bg {
+  background: url("../src//assets/home//chef-service.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
