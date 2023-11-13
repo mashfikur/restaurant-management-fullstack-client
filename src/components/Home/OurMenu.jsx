@@ -1,5 +1,6 @@
 import SectionHeading from "../SectionHeading";
 import useMenuData from "../../hooks/useMenuData";
+import PropTypes from "prop-types";
 
 const OurMenu = ({ category }) => {
   const [menu] = useMenuData();
@@ -42,6 +43,10 @@ const OurMenu = ({ category }) => {
       </div>
     </div>
   );
+};
+
+OurMenu.propTypes = {
+  category: PropTypes.string,
 };
 
 export default OurMenu;
