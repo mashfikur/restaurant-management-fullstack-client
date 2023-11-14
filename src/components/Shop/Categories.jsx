@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import useMenuData from "../../hooks/useMenuData";
 import TabCards from "./TabCards";
+import { SharedContext } from "../../context/SharedInfo";
 
 const Categories = () => {
+  const { orderdCategory } = useContext(SharedContext);
+  console.log(orderdCategory)
+
   const [menu] = useMenuData();
   const items = ["salad", "pizza", "soups", "desserts", "drinks"];
   const [tabIndex, setTabIndex] = useState(0);
@@ -17,15 +21,18 @@ const Categories = () => {
   const drinks = menu.filter((data) => data.category === "drinks");
 
   const categories = [salad, pizza, soups, desserts, drinks];
+  const selectedIndex = items.indexOf(orderdCategory);
+
+  
 
   return (
     <div className="mt-32 max-w-7xl mx-auto">
       <Tabs
         selectedTabClassName="active-tab  "
-        selectedIndex={tabIndex}
+        selectedIndex={selectedIndex === -1 ? tabIndex : selectedIndex}
         onSelect={(index) => setTabIndex(index)}
       >
-        <TabList className={" mb-12 flex gap-12  items-center justify-center"}>
+        <TabList className={"  flex gap-12  items-center justify-center"}>
           {items.map((item, idx) => (
             <Tab
               className={

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const TabCards = ({ items }) => {
   return (
-    <div>
+    <div className="my-12">
       <div className="grid grid-cols-3 gap-6">
         {items.map((item) => (
           <div

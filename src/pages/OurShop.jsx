@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import bg from "../assets/shop/banner2.jpg";
 import SectionCover from "../components/Menu/SectionCover";
 import Categories from "../components/Shop/Categories";
 
 const OurShop = () => {
+  useEffect(() => {
+    window.scrollTo(0,500);
+  }, []);
+
   return (
     <div>
       {/* cover section */}
@@ -13,10 +18,8 @@ const OurShop = () => {
         desc={"Would you like to try a dish?"}
       ></SectionCover>
 
-        {/* categories tabs */}
-        <Categories></Categories>
-
-
+      {/* categories tabs */}
+      <Categories></Categories>
     </div>
   );
 };

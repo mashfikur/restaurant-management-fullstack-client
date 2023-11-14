@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
 import useMenuData from "../../hooks/useMenuData";
+import { useContext } from "react";
+import { SharedContext } from "../../context/SharedInfo";
+import { Link } from "react-router-dom";
 
 const SingleMenu = ({ category }) => {
+  const { setOrderedCategory } = useContext(SharedContext);
   const [menu] = useMenuData();
   const categoryData = menu.filter((data) => data.category === category);
 
@@ -20,7 +24,7 @@ const SingleMenu = ({ category }) => {
                 src={data.image}
                 alt="menu-image"
                 className="object-cover"
-              /> 
+              />
             </div>
             <div>
               <h3 className="font-cinzel text-xl">
@@ -37,9 +41,16 @@ const SingleMenu = ({ category }) => {
       </div>
 
       <div className="flex flex-col items-center mt-12 ">
-        <button className="btn tracking-wide text-base btn-outline border-b-4 border-x-0 border-t-0">
-          ORDER YOUR FAVOURITE FOOD
-        </button>
+        <Link to="/our-shop">
+          <button
+            onClick={() =>
+              setOrderedCategory(category === "soup" ? "soups" : category)
+            }
+            className="btn tracking-wide text-base btn-outline border-b-4 border-x-0 border-t-0"
+          >
+            ORDER YOUR FAVOURITE FOOD
+          </button>
+        </Link>
       </div>
     </div>
   );
