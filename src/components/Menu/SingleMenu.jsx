@@ -20,7 +20,7 @@ const SingleMenu = ({ category }) => {
                 src={data.image}
                 alt="menu-image"
                 className="object-cover"
-              />
+              /> 
             </div>
             <div>
               <h3 className="font-cinzel text-xl">
