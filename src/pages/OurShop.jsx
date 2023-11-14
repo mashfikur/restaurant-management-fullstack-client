@@ -5,7 +5,7 @@ import Categories from "../components/Shop/Categories";
 
 const OurShop = () => {
   useEffect(() => {
-    window.scrollTo(0,500);
+    window.scrollTo(0, 500);
   }, []);
 
   return (
