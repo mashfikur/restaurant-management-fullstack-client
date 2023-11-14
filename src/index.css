@@ -40,3 +40,14 @@ body {
 .overlay {
   background-color: rgba(21, 21, 21, 0.7);
 }
+
+.active-tab {
+  color: #bb8506;
+  font-weight: 600;
+  border-bottom: 4px solid #bb8506;
+  
+}
+
+.active-tab :focus{
+  border: 20px solid red;
+}

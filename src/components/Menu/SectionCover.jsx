@@ -6,7 +6,7 @@ const SectionCover = ({ main, title, desc, img }) => {
     <Parallax
       blur={{ min: -50, max: 50 }}
       bgImage={img}
-      bgImageAlt="the dog"
+      bgImageAlt="menu cover"
       strength={-200}
     >
       <div>
