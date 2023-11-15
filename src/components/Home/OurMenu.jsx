@@ -2,6 +2,7 @@ import SectionHeading from "../SectionHeading";
 import useMenuData from "../../hooks/useMenuData";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import loader from "../../assets/others/loader3.gif";
 
 const OurMenu = ({ category }) => {
   const [menu, menuLoading] = useMenuData();
@@ -16,7 +17,7 @@ const OurMenu = ({ category }) => {
 
       {menuLoading && (
         <div className="flex items-center justify-center min-h-[50vh]">
-          <span className="loading loading-bars loading-lg"></span>
+          <img src={loader} alt="" />
         </div>
       )}
 

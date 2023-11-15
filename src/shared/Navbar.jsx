@@ -21,7 +21,7 @@ const Navbar = () => {
         <img className="w-[3rem]" src={cartImg} alt="cart-image" />{" "}
       </NavLink>
 
-      <NavLink to={"/demo"}>SIGN OUT</NavLink>
+      <NavLink to={"/login"}>SIGN IN</NavLink>
     </>
   );
 

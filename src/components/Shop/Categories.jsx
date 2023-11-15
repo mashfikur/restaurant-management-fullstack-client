@@ -4,6 +4,7 @@ import "react-tabs/style/react-tabs.css";
 import useMenuData from "../../hooks/useMenuData";
 import TabCards from "./TabCards";
 import { SharedContext } from "../../context/SharedInfo";
+import loader from "../../assets/others/loader3.gif";
 
 const Categories = () => {
   const { orderdCategory } = useContext(SharedContext);
@@ -46,7 +47,7 @@ const Categories = () => {
 
         {menuLoading && (
           <div className="flex items-center justify-center min-h-[50vh]">
-            <span className="loading loading-bars loading-lg"></span>
+            <img src={loader} alt="" />
           </div>
         )}
 
