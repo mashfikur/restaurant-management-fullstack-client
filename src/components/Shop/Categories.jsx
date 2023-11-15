@@ -7,9 +7,9 @@ import { SharedContext } from "../../context/SharedInfo";
 
 const Categories = () => {
   const { orderdCategory } = useContext(SharedContext);
-  console.log(orderdCategory)
+  console.log(orderdCategory);
 
-  const [menu] = useMenuData();
+  const [menu, menuLoading] = useMenuData();
   const items = ["salad", "pizza", "soups", "desserts", "drinks"];
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -23,13 +23,11 @@ const Categories = () => {
   const categories = [salad, pizza, soups, desserts, drinks];
   const selectedIndex = items.indexOf(orderdCategory);
 
-  
-
   return (
     <div className="mt-32 max-w-7xl mx-auto">
       <Tabs
         selectedTabClassName="active-tab  "
-        selectedIndex={selectedIndex === -1 ? tabIndex : selectedIndex}
+        defaultIndex={selectedIndex === -1 ? tabIndex : selectedIndex}
         onSelect={(index) => setTabIndex(index)}
       >
         <TabList className={"  flex gap-12  items-center justify-center"}>
@@ -45,6 +43,12 @@ const Categories = () => {
             </Tab>
           ))}
         </TabList>
+
+        {menuLoading && (
+          <div className="flex items-center justify-center min-h-[50vh]">
+            <span className="loading loading-bars loading-lg"></span>
+          </div>
+        )}
 
         {categories.map((category, idx) => (
           <TabPanel key={idx}>

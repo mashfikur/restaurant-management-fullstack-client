@@ -6,8 +6,13 @@ import dessertBg from "../assets/menu/dessert-bg.jpeg";
 import pizzaBg from "../assets/menu/pizza-bg.jpg";
 import saladBg from "../assets/menu/salad-bg.jpg";
 import soupBg from "../assets/menu/soup-bg.jpg";
+import { useEffect } from "react";
 
 const Menu = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div>
       {/* page cover */}

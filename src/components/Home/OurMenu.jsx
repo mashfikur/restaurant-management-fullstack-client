@@ -1,9 +1,10 @@
 import SectionHeading from "../SectionHeading";
 import useMenuData from "../../hooks/useMenuData";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const OurMenu = ({ category }) => {
-  const [menu] = useMenuData();
+  const [menu, menuLoading] = useMenuData();
   const popular = menu.filter((data) => data.category === category);
 
   return (
@@ -12,6 +13,12 @@ const OurMenu = ({ category }) => {
         priamary={"FROM OUR MENU"}
         secondary={"---Check it out---"}
       ></SectionHeading>
+
+      {menuLoading && (
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <span className="loading loading-bars loading-lg"></span>
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-8">
         {popular.map((data) => (
@@ -39,7 +46,9 @@ const OurMenu = ({ category }) => {
       </div>
 
       <div className="flex flex-col items-center mt-12 ">
-        <button className="btn btn-outline border-b-4">view full menu</button>
+        <Link to="/our-menu">
+          <button className="btn btn-outline border-b-4">view full menu</button>
+        </Link>
       </div>
     </div>
   );

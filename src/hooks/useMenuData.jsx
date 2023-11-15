@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
+import useAxios from "./useAxios";
 
 const useMenuData = () => {
   const [menu, setMenu] = useState([]);
   const [menuLoading, setMenuLoading] = useState(true);
 
+  const axiosCustom = useAxios();
+
   useEffect(() => {
-    fetch("/menu.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setMenu(data);
-        setMenuLoading(false);
-      });
-  }, []);
+    axiosCustom.get("/api/v1/menu").then((res) => {
+      setMenu(res.data);
+      setMenuLoading(false);
+    });
+  }, [axiosCustom]);
 
   return [menu, menuLoading];
 };
