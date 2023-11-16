@@ -5,9 +5,15 @@ import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa6";
 
 // importing hook form
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
 
 const Login = () => {
+  const { createUser, setLoading, user, setUser } = useAuth();
+  const navigate = useNavigate();
+
   // form controls
   const {
     register,
@@ -19,7 +25,30 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+
+    //creating a user
+    createUser(data.email, data.password)
+      .then((result) => {
+        // updating user
+        updateProfile(result.user, {
+          displayName: data.name,
+          photoURL: data.photo,
+        })
+          .then(() => {
+            toast.success("Created Account Successfully");
+            setUser({ ...user, displayName: data.name, photoURL: data.photo });
+            reset();
+            navigate("/");
+          })
+          .catch((error) => {
+            toast.error(error);
+            setLoading(false);
+          });
+      })
+      .catch((error) => {
+        toast.error(error);
+        setLoading(false);
+      });
   };
 
   return (
