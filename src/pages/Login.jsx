@@ -7,6 +7,9 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 
+// import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa6";
+
+
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
 

@@ -7,6 +7,7 @@ import pizzaBg from "../assets/menu/pizza-bg.jpg";
 import saladBg from "../assets/menu/salad-bg.jpg";
 import soupBg from "../assets/menu/soup-bg.jpg";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Menu = () => {
   useEffect(() => {
@@ -15,6 +16,9 @@ const Menu = () => {
 
   return (
     <div>
+      <Helmet>
+        <title> Bistro Boss | Menu </title>
+      </Helmet>
       {/* page cover */}
       <SectionCover
         title={"OUR MENU"}
