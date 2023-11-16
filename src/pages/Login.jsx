@@ -7,16 +7,34 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 
-// import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa6";
+import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa6";
 
+// importing hook form
+import { useForm } from "react-hook-form";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
 
+  // form controls
+  const {
+    register,
+    handleSubmit,
+    // watch,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    reset();
+  };
+
+  // loading captcha amounts
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
+  // verifying captcha submit
   const captchaSubmit = (e) => {
     const value = e.target.value;
     if (validateCaptcha(value)) {
@@ -46,7 +64,11 @@ const Login = () => {
                   <h1 className="text-4xl font-bold">Login </h1>
                 </div>
                 <div className="  w-full">
-                  <form className="flex flex-col gap-3">
+                  <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col gap-3"
+                  >
+                    {/* email */}
                     <div className="form-control">
                       <label className="label">
                         <span className="label-text font-semibold text-lg">
@@ -58,8 +80,12 @@ const Login = () => {
                         placeholder="email"
                         className="input input-bordered focus:outline-none"
                         required
+                        {...register("email")}
                       />
                     </div>
+
+                    {/* password */}
+
                     <div className="form-control">
                       <label className="label">
                         <span className="label-text font-semibold text-lg">
@@ -71,33 +97,43 @@ const Login = () => {
                         placeholder="password"
                         className="input input-bordered focus:outline-none"
                         required
+                        {...register("password", { minLength: 6 })}
                       />
+                      {errors.password && (
+                        <p className="text-red-600 font-semibold">
+                          {" "}
+                          Password should be more than 6 charectars{" "}
+                        </p>
+                      )}
                       <label className="label">
                         <LoadCanvasTemplate />
                       </label>
                     </div>
+
+                    {/* captcha */}
                     <div className="form-control">
                       <input
                         onBlur={captchaSubmit}
                         type="text"
-                        placeholder="Type here"
+                        placeholder="Type Captcha, Press Enter"
                         className="input input-bordered focus:outline-none"
                         required
                       />
-                      {/* <div className="form-control mt-6">
-                        <button
-                          onClick={captchaSubmit}
-                          className="btn btn-xs w-24 mx-auto text-white bg-[#dbb985]"
-                        >
-                          submit
-                        </button>
-                      </div> */}
+
+                      <button
+                        disabled
+                        className="btn disabled:btn-neutral mt-3 w-24 mx-auto btn-sm"
+                      >
+                        validate
+                      </button>
                     </div>
+
+                    {/* submit button */}
 
                     <div className="form-control mt-6">
                       <button
                         disabled={disabled}
-                        className="btn text-white hvoer:bg-[#dbb985] bg-[#dbb985]"
+                        className="btn text-white hover:bg-[#dbb985] bg-[#dbb985]"
                       >
                         Login
                       </button>
@@ -110,9 +146,13 @@ const Login = () => {
                       <span className="font-bold">Create a New Account</span>{" "}
                     </p>
 
-                    <div className="mt-6">
-                      <p>Or Sign in with</p>
-                      <div></div>
+                    <div className="mt-6 flex flex-col items-center justify-center">
+                      <p className="font-semibold">Or Sign in with</p>
+                      <div className="flex mt-5 items-center gap-8 text-3xl">
+                        <FaFacebook></FaFacebook>
+                        <FaGoogle></FaGoogle>
+                        <FaGithub></FaGithub>
+                      </div>
                     </div>
                   </div>
                 </div>
