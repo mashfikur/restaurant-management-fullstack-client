@@ -116,7 +116,7 @@ const SignUp = () => {
                       <input
                         onBlur={captchaSubmit}
                         type="text"
-                        placeholder="Type Captcha, Press Enter"
+                        placeholder="Type here"
                         className="input input-bordered focus:outline-none"
                         required
                       />
