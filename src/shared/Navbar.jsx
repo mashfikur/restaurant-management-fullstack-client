@@ -1,7 +1,11 @@
 import { useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
-import cartImg from "../assets/icon/cartImage.png";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
+import { FaShoppingCart } from "react-icons/fa";
 const Navbar = () => {
+  const { user, loading, userSignOut, setLoading } = useAuth();
+
   const focusRef = useRef();
 
   const handleFocus = () => {
@@ -17,13 +21,24 @@ const Navbar = () => {
       <NavLink to={"/our-menu"}>OUR MENU</NavLink>
       <NavLink to={"/our-shop"}>OUR SHOP</NavLink>
       <NavLink to={"/demo"}>
-        {" "}
-        <img className="w-[3rem]" src={cartImg} alt="cart-image" />{" "}
+        <div className="flex items-center gap-1">
+          <FaShoppingCart className="text-2xl" />
+          <div className="badge badge-warning">+0</div>
+        </div>
       </NavLink>
-
-      <NavLink to={"/login"}>SIGN IN</NavLink>
     </>
   );
+
+  const handleSignOut = () => {
+    userSignOut()
+      .then(() => {
+        toast.success("Logged Out Successfully");
+      })
+      .catch((error) => {
+        toast.error(error.code);
+        setLoading(false);
+      });
+  };
 
   return (
     <div>
@@ -76,8 +91,37 @@ const Navbar = () => {
           <ul className="menu menu-horizontal flex items-center font-extrabold  space-x-8">
             {navLinks}
           </ul>
-          <div>
-            <button className="btn btn-accent">Logout</button>
+          <div className="flex">
+            {loading ? (
+              <div>
+                <span className="loading loading-lg loading-spinner text-warning"></span>
+              </div>
+            ) : user ? (
+              <div className="flex ml-5 gap-3">
+                <button onClick={handleSignOut} className="btn btn-accent">
+                  Sign Out
+                </button>
+                <div className="flex items-center gap-2 bg-warning text-black px-4 rounded-full">
+                  <img
+                    className="w-8 h-8 rounded-full  object-cover"
+                    src={
+                      user
+                        ? user.photoURL
+                        : "https://i.ibb.co/v1rS1K4/Frame.png"
+                    }
+                    alt="user-image"
+                  />{" "}
+                  <p className="font-semibold"> {user.displayName} </p>
+                </div>
+              </div>
+            ) : (
+              <div>
+                {" "}
+                <Link to="/login">
+                  <button className="btn btn-accent ">Sign In</button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -11,10 +11,14 @@ import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa6";
 
 // importing hook form
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const [disabled, setDisabled] = useState(true);
+  const { userSignIn, setLoading } = useAuth();
+  const navigate = useNavigate();
 
   // form controls
   const {
@@ -27,7 +31,18 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+
+    //
+    userSignIn(data.email, data.password)
+      .then(() => {
+        reset();
+        toast.success("Logged In Successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.code);
+        setLoading(false);
+      });
   };
 
   // loading captcha amounts

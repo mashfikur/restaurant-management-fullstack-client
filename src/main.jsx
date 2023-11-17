@@ -6,6 +6,7 @@ import router from "./routes/router.jsx";
 import SharedInfo from "./context/SharedInfo.jsx";
 import { HelmetProvider } from "react-helmet-async";
 import AuthProvider from "./Authentication/AuthProvider.jsx";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <HelmetProvider>
         <SharedInfo>
           <RouterProvider router={router}></RouterProvider>
+          <Toaster></Toaster>
         </SharedInfo>
       </HelmetProvider>
     </AuthProvider>

@@ -29,15 +29,15 @@ const Login = () => {
     //creating a user
     createUser(data.email, data.password)
       .then((result) => {
+        toast.success("Created Account Successfully");
+        reset();
         // updating user
         updateProfile(result.user, {
           displayName: data.name,
           photoURL: data.photo,
         })
           .then(() => {
-            toast.success("Created Account Successfully");
             setUser({ ...user, displayName: data.name, photoURL: data.photo });
-            reset();
             navigate("/");
           })
           .catch((error) => {
@@ -178,6 +178,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };
