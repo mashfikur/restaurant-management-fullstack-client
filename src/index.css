@@ -51,3 +51,8 @@ body {
 .active-tab :focus{
   border: 20px solid red;
 }
+
+
+.active-sidebar {
+  color: white;
+}

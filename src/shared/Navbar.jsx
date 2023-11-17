@@ -20,7 +20,7 @@ const Navbar = () => {
     <>
       <NavLink to={"/"}>HOME</NavLink>
       <NavLink to={"/demo"}>CONTACT US</NavLink>
-      <NavLink to={"/demo"}>DASHBOARD</NavLink>
+      <NavLink to={"/dashboard"}>DASHBOARD</NavLink>
       <NavLink to={"/our-menu"}>OUR MENU</NavLink>
       <NavLink to={"/our-shop"}>OUR SHOP</NavLink>
       <NavLink to={"/demo"}>
@@ -28,7 +28,7 @@ const Navbar = () => {
           <FaShoppingCart className="text-2xl" />
           <div className="badge badge-warning"> +{cartItems?.length} </div>
         </div>
-      </NavLink>
+      </NavLink> 
     </>
   );
 

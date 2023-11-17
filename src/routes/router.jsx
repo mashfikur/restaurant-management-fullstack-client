@@ -6,6 +6,8 @@ import ErrorPage from "../pages/ErrorPage";
 import OurShop from "../pages/OurShop";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
+import Dashboard from "../pages/Dashboard";
+import Cart from "../pages/Cart";
 
 const router = createBrowserRouter([
   {
@@ -30,10 +32,23 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login></Login>,
+    errorElement: <ErrorPage></ErrorPage>,
   },
   {
     path: "/sign-up",
     element: <SignUp></SignUp>,
+    errorElement: <ErrorPage></ErrorPage>,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    errorElement: <ErrorPage></ErrorPage>,
+    children: [
+      {
+        path: "/dashboard/my-cart",
+        element: <Cart></Cart>,
+      },
+    ],
   },
 ]);
 
