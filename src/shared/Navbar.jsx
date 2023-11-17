@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { FaShoppingCart } from "react-icons/fa";
+import { TbLogout } from "react-icons/tb";
 const Navbar = () => {
   const { user, loading, userSignOut, setLoading } = useAuth();
 
@@ -98,27 +99,49 @@ const Navbar = () => {
               </div>
             ) : user ? (
               <div className="flex ml-5 gap-3">
-                <button onClick={handleSignOut} className="btn btn-accent">
-                  Sign Out
-                </button>
-                <div className="flex items-center gap-2 bg-warning text-black px-4 rounded-full">
-                  <img
-                    className="w-8 h-8 rounded-full  object-cover"
-                    src={
-                      user
-                        ? user.photoURL
-                        : "https://i.ibb.co/v1rS1K4/Frame.png"
-                    }
-                    alt="user-image"
-                  />{" "}
-                  <p className="font-semibold"> {user.displayName} </p>
+                <div>
+                  {/* dropdown */}
+                  <div className="dropdown  dropdown-left dropdown-bottom">
+                    <div
+                      tabIndex={0}
+                      className="flex py-2 cursor-pointer items-center gap-2 bg-warning text-black px-4 rounded-full"
+                    >
+                      <img
+                        className="w-8 h-8 rounded-full  object-cover"
+                        src={
+                          user
+                            ? user.photoURL
+                            : "https://i.ibb.co/v1rS1K4/Frame.png"
+                        }
+                        alt="user-image"
+                      />{" "}
+                      <p className="font-semibold"> {user.displayName} </p>
+                    </div>
+
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content z-[1] menu p-2 shadow rounded-box w-52 bg-warning text-black"
+                    >
+                      <div className="flex flex-col items-center">
+                        <button
+                          onClick={handleSignOut}
+                          className="btn rounded-full  w-full"
+                        >
+                          <TbLogout className="text-2xl" />
+                          Sign Out
+                        </button>
+                      </div>
+                    </ul>
+                  </div>
                 </div>
               </div>
             ) : (
               <div>
                 {" "}
                 <Link to="/login">
-                  <button className="btn btn-accent ">Sign In</button>
+                  <button className="btn btn-warning rounded-full px-6 ">
+                    Sign In
+                  </button>
                 </Link>
               </div>
             )}

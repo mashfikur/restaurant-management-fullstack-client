@@ -8,7 +8,6 @@ import loader from "../../assets/others/loader3.gif";
 
 const Categories = () => {
   const { orderdCategory } = useContext(SharedContext);
-  console.log(orderdCategory);
 
   const [menu, menuLoading] = useMenuData();
   const items = ["salad", "pizza", "soups", "desserts", "drinks"];
