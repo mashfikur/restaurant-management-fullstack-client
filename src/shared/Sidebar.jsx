@@ -10,7 +10,7 @@ const Sidebar = () => {
     <div className="w-[17rem] bg-[#D1A054] min-h-screen">
       <div className="pl-8 ">
         <div className="pt-12">
-          <Link>
+          <Link to="/">
             <p className="font-cinzel font-black text-2xl">BISTRO BOSS</p>
             <p className="font-cinzel text-xl font-bold tracking-[.35rem]">
               Restaurant
