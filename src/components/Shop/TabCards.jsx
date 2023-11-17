@@ -2,10 +2,12 @@ import PropTypes from "prop-types";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useCartItem from "../../hooks/useCartItem";
 
 const TabCards = ({ items }) => {
   const { user } = useAuth();
   const axiosCustom = useAxios();
+  const [, refetch] = useCartItem();
 
   const handleAddCart = (_id) => {
     const itemInfo = { itemId: _id, userId: user.uid };
@@ -16,6 +18,7 @@ const TabCards = ({ items }) => {
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Added Item to Cart");
+          refetch();
         }
       })
       .catch((error) => {

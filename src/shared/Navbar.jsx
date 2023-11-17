@@ -4,8 +4,10 @@ import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { FaShoppingCart } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
+import useCartItem from "../hooks/useCartItem";
 const Navbar = () => {
   const { user, loading, userSignOut, setLoading } = useAuth();
+  const [cartItems] = useCartItem();
 
   const focusRef = useRef();
 
@@ -24,7 +26,7 @@ const Navbar = () => {
       <NavLink to={"/demo"}>
         <div className="flex items-center gap-1">
           <FaShoppingCart className="text-2xl" />
-          <div className="badge badge-warning">+0</div>
+          <div className="badge badge-warning"> +{cartItems?.length} </div>
         </div>
       </NavLink>
     </>
