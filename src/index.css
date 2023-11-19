@@ -45,13 +45,11 @@ body {
   color: #bb8506;
   font-weight: 600;
   border-bottom: 4px solid #bb8506;
-  
 }
 
-.active-tab :focus{
+.active-tab :focus {
   border: 20px solid red;
 }
-
 
 .active-sidebar {
   color: white;
