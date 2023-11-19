@@ -14,11 +14,13 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const SignUp = () => {
   const [disabled, setDisabled] = useState(true);
-  const { userSignIn, setLoading } = useAuth();
+  const { userSignIn, setLoading, googleSignIn } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   // form controls
   const {
@@ -58,6 +60,33 @@ const SignUp = () => {
     } else {
       setDisabled(true);
     }
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        toast.success("Logged In Successfully");
+
+        // adding user to databse
+        const userInfo = {
+          name: result.user.displayName,
+          email: result.user.email,
+          uid: result.user.uid,
+        };
+
+        axiosPublic
+          .post("/api/v1/add-user", userInfo)
+          .then((res) => {
+            console.log(res.data);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        toast.error(error.code);
+      });
   };
 
   return (
@@ -167,9 +196,12 @@ const SignUp = () => {
                     <div className="mt-6 flex flex-col items-center justify-center">
                       <p className="font-semibold">Or Sign in with</p>
                       <div className="flex mt-5 items-center gap-8 text-3xl">
-                        <FaFacebook></FaFacebook>
-                        <FaGoogle></FaGoogle>
-                        <FaGithub></FaGithub>
+                        <FaFacebook className="cursor-pointer"></FaFacebook>
+                        <FaGoogle
+                          className="cursor-pointer"
+                          onClick={handleGoogleSignIn}
+                        ></FaGoogle>
+                        <FaGithub className="cursor-pointer"></FaGithub>
                       </div>
                     </div>
                   </div>

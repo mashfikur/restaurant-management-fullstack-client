@@ -12,7 +12,7 @@ import { updateProfile } from "firebase/auth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Login = () => {
-  const { createUser, setLoading, user, setUser } = useAuth();
+  const { createUser, setLoading, user, setUser, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
 
@@ -71,6 +71,33 @@ const Login = () => {
         toast.error(error.code);
 
         setLoading(false);
+      });
+  };
+
+  const handleGoogleSignUp = () => {
+    googleSignIn()
+      .then((result) => {
+        toast.success("Created Account  Successfully");
+
+        // adding user to databse
+        const userInfo = {
+          name: result.user.displayName,
+          email: result.user.email,
+          uid: result.user.uid,
+        };
+
+        axiosPublic
+          .post("/api/v1/add-user", userInfo)
+          .then((res) => {
+            console.log(res.data);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        toast.error(error.code);
       });
   };
 
@@ -189,9 +216,12 @@ const Login = () => {
                     <div className="mt-6 flex flex-col items-center justify-center">
                       <p className="font-semibold">Or Sign Up with</p>
                       <div className="flex mt-5 items-center gap-8 text-3xl">
-                        <FaFacebook></FaFacebook>
-                        <FaGoogle></FaGoogle>
-                        <FaGithub></FaGithub>
+                        <FaFacebook className="cursor-pointer"></FaFacebook>
+                        <FaGoogle
+                          className="cursor-pointer"
+                          onClick={handleGoogleSignUp}
+                        ></FaGoogle>
+                        <FaGithub className="cursor-pointer"></FaGithub>
                       </div>
                     </div>
                   </div>

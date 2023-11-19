@@ -4,8 +4,11 @@ import { FaCalendarAlt } from "react-icons/fa";
 import { IoWalletSharp } from "react-icons/io5";
 import { BsFillCartFill } from "react-icons/bs";
 import { BiSolidCalendarEdit } from "react-icons/bi";
+import useCartItem from "../hooks/useCartItem";
 
 const Sidebar = () => {
+  const [cartItems] = useCartItem();
+
   return (
     <div className="w-[17rem] bg-[#D1A054] min-h-screen">
       <div className="pl-8 ">
@@ -74,7 +77,8 @@ const Sidebar = () => {
                 }
               >
                 {" "}
-                <BsFillCartFill className="text-2xl"></BsFillCartFill> My Cart{" "}
+                <BsFillCartFill className="text-2xl"></BsFillCartFill> My Cart ({" "}
+                {cartItems.length} )
               </NavLink>{" "}
             </li>
 
