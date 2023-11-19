@@ -9,10 +9,12 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Login = () => {
   const { createUser, setLoading, user, setUser } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   // form controls
   const {
@@ -31,6 +33,7 @@ const Login = () => {
       .then((result) => {
         toast.success("Created Account Successfully");
         reset();
+
         // updating user
         updateProfile(result.user, {
           displayName: data.name,
@@ -38,15 +41,35 @@ const Login = () => {
         })
           .then(() => {
             setUser({ ...user, displayName: data.name, photoURL: data.photo });
+
+            // adding user to database
+            const usersInfo = {
+              name: result.user.displayName,
+              email: result.user.email,
+              uid: result.user.uid,
+            };
+
+            axiosPublic
+              .post("/api/v1/add-user", usersInfo)
+              .then((res) => {
+                console.log(res.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+
             navigate("/");
           })
           .catch((error) => {
-            toast.error(error);
+            toast.error(error.code);
+
             setLoading(false);
           });
       })
       .catch((error) => {
-        toast.error(error);
+        console.log(error);
+        toast.error(error.code);
+
         setLoading(false);
       });
   };
@@ -178,7 +201,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };
