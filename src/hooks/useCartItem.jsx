@@ -7,7 +7,7 @@ const useCartItem = () => {
   const { user } = useAuth();
 
   // fetching cart items for individual user
-  const { data: cartItems, refetch } = useQuery({
+  const { data: cartItems, refetch ,isPending } = useQuery({
     queryKey: ["cart", user?.email],
     queryFn: async () => {
       return axiosCustom
@@ -18,7 +18,7 @@ const useCartItem = () => {
     },
   });
 
-  return [cartItems, refetch];
+  return [cartItems, refetch,isPending];
 };
 
 export default useCartItem;
