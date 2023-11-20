@@ -9,12 +9,14 @@ import {
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
+import useAxios from "../hooks/useAxios";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosCustom = useAxios();
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -38,17 +40,30 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        console.log(currentUser)
+        console.log(currentUser);
         setUser(currentUser);
         setLoading(false);
+
+        //creating a token
+        const userInfo = { uid: currentUser.uid };
+        axiosCustom
+          .post("/api/v1/auth/create-token", userInfo)
+          .then((res) => {
+            const token = res.data?.token;
+            localStorage.setItem("token", token);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         setUser(null);
         setLoading(false);
+        localStorage.removeItem("token");
       }
     });
 
     return () => unSubscribe();
-  }, []);
+  }, [axiosCustom]);
 
   const userSignOut = () => {
     return signOut(auth);
