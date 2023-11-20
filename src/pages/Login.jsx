@@ -11,7 +11,7 @@ import { FaFacebook, FaGoogle, FaGithub } from "react-icons/fa6";
 
 // importing hook form
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxiosPublic";
@@ -21,6 +21,10 @@ const SignUp = () => {
   const { userSignIn, setLoading, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+
+  const location = useLocation();
+
+  const from = location?.state?.from?.pathname || "/";
 
   // form controls
   const {
@@ -39,7 +43,7 @@ const SignUp = () => {
       .then(() => {
         reset();
         toast.success("Logged In Successfully");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         toast.error(error.code);
@@ -78,7 +82,7 @@ const SignUp = () => {
           .post("/api/v1/add-user", userInfo)
           .then((res) => {
             console.log(res.data);
-            navigate("/");
+            navigate(from, { replace: true });
           })
           .catch((error) => {
             console.error(error);

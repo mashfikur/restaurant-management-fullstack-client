@@ -9,6 +9,7 @@ import SignUp from "../pages/SignUp";
 import Dashboard from "../pages/Dashboard";
 import Cart from "../pages/Cart";
 import AllUsers from "../pages/AllUsers";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/our-shop",
-        element: <OurShop></OurShop>,
+        element: <PrivateRoute><OurShop></OurShop></PrivateRoute>,
       },
     ],
   },
@@ -42,12 +43,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/dashboard/my-cart",
-        element: <Cart></Cart>,
+        element: <PrivateRoute><Cart></Cart></PrivateRoute>,
       },
       {
         path: "/dashboard/all-users",
