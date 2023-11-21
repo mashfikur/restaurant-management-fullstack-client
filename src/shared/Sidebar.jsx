@@ -12,9 +12,10 @@ import { FaUsers } from "react-icons/fa";
 import { ImSpoonKnife } from "react-icons/im";
 import { FaBook } from "react-icons/fa";
 import { TfiMenuAlt } from "react-icons/tfi";
+import useCheckAdmin from "../hooks/useCheckAdmin";
 const Sidebar = () => {
   const [cartItems] = useCartItem();
-  const isAdmin = true;
+  const [isAdmin, isAdminLoading] = useCheckAdmin();
 
   return (
     <div className="w-[17rem] bg-[#D1A054] min-h-screen">
@@ -32,178 +33,188 @@ const Sidebar = () => {
         <div className="mt-20">
           {/* conditionally changable links */}
 
-          {isAdmin ? (
-            <>
-              {/* admin links */}
-              <ul className="space-y-6">
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    <MdHomeFilled className="text-2xl"></MdHomeFilled> Admin
-                    Home{" "}
-                  </NavLink>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <ImSpoonKnife className="text-2xl"></ImSpoonKnife> Add Items{" "}
-                  </NavLink>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <TfiMenuAlt className="text-2xl"></TfiMenuAlt>
-                    Manage Items{" "}
-                  </NavLink>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <FaBook className="text-2xl"></FaBook>
-                    Manage Bookings
-                  </NavLink>{" "}
-                </li>
-
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/dashboard/all-users"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <FaUsers className="text-2xl"></FaUsers> All Users{" "}
-                  </NavLink>{" "}
-                </li>
-              </ul>
-            </>
+          {isAdminLoading ? (
+            <div>
+              <span className="loading loading-dots loading-lg"></span>
+            </div>
           ) : (
             <>
-              {/* user links */}
-              <ul className="space-y-6">
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    <MdHomeFilled className="text-2xl"></MdHomeFilled> User Home{" "}
-                  </NavLink>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <FaCalendarAlt className="text-2xl"></FaCalendarAlt>{" "}
-                    Reservation{" "}
-                  </NavLink>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <IoWalletSharp className="text-2xl"></IoWalletSharp> Payment
-                    History{" "}
-                  </NavLink>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/dashboard/my-cart"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <BsFillCartFill className="text-2xl"></BsFillCartFill> My
-                    Cart ( {cartItems.length} )
-                  </NavLink>{" "}
-                </li>
+              {isAdmin ? (
+                <>
+                  {/* admin links */}
+                  <ul className="space-y-6">
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        <MdHomeFilled className="text-2xl"></MdHomeFilled> Admin
+                        Home{" "}
+                      </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <ImSpoonKnife className="text-2xl"></ImSpoonKnife> Add
+                        Items{" "}
+                      </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <TfiMenuAlt className="text-2xl"></TfiMenuAlt>
+                        Manage Items{" "}
+                      </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <FaBook className="text-2xl"></FaBook>
+                        Manage Bookings
+                      </NavLink>{" "}
+                    </li>
 
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <MdReviews className="text-2xl"></MdReviews> Add Review{" "}
-                  </NavLink>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <NavLink
-                    to="/demo"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
-                        : "flex items-center gap-1  font-cinzel font-semibold "
-                    }
-                  >
-                    {" "}
-                    <BiSolidCalendarEdit className="text-2xl"></BiSolidCalendarEdit>{" "}
-                    My Booking{" "}
-                  </NavLink>{" "}
-                </li>
-              </ul>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/dashboard/all-users"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <FaUsers className="text-2xl"></FaUsers> All Users{" "}
+                      </NavLink>{" "}
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                <>
+                  {/* user links */}
+                  <ul className="space-y-6">
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        <MdHomeFilled className="text-2xl"></MdHomeFilled> User
+                        Home{" "}
+                      </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <FaCalendarAlt className="text-2xl"></FaCalendarAlt>{" "}
+                        Reservation{" "}
+                      </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <IoWalletSharp className="text-2xl"></IoWalletSharp>{" "}
+                        Payment History{" "}
+                      </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/dashboard/my-cart"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <BsFillCartFill className="text-2xl"></BsFillCartFill>{" "}
+                        My Cart ( {cartItems?.length} )
+                      </NavLink>{" "}
+                    </li>
+
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <MdReviews className="text-2xl"></MdReviews> Add Review{" "}
+                      </NavLink>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <NavLink
+                        to="/demo"
+                        className={({ isActive }) =>
+                          isActive
+                            ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
+                            : "flex items-center gap-1  font-cinzel font-semibold "
+                        }
+                      >
+                        {" "}
+                        <BiSolidCalendarEdit className="text-2xl"></BiSolidCalendarEdit>{" "}
+                        My Booking{" "}
+                      </NavLink>{" "}
+                    </li>
+                  </ul>
+                </>
+              )}
             </>
           )}
 
