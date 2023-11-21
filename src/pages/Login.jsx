@@ -15,12 +15,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import useAxios from "../hooks/useAxios";
 
 const SignUp = () => {
   const [disabled, setDisabled] = useState(true);
   const { userSignIn, setLoading, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const axiosCustom = useAxios();
 
   const location = useLocation();
 
@@ -40,10 +42,24 @@ const SignUp = () => {
 
     //
     userSignIn(data.email, data.password)
-      .then(() => {
+      .then((result) => {
         reset();
         toast.success("Logged In Successfully");
-        navigate(from, { replace: true });
+        console.log({ myValue: result.user });
+
+        //creating a token
+        const userInfo = { uid: result.user.uid };
+        console.log(userInfo);
+        axiosCustom
+          .post("/api/v1/auth/create-token", userInfo)
+          .then((res) => {
+            const token = res.data?.token;
+            localStorage.setItem("token", token);
+            navigate(from, { replace: true });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         toast.error(error.code);
@@ -72,20 +88,33 @@ const SignUp = () => {
         toast.success("Logged In Successfully");
 
         // adding user to databse
-        const userInfo = {
+        const user = {
           name: result.user.displayName,
           email: result.user.email,
           uid: result.user.uid,
         };
 
         axiosPublic
-          .post("/api/v1/add-user", userInfo)
+          .post("/api/v1/add-user", user)
           .then((res) => {
             console.log(res.data);
             navigate(from, { replace: true });
           })
           .catch((error) => {
             console.error(error);
+          });
+
+        //creating a token
+        const userInfo = { uid: result.user.uid };
+        axiosCustom
+          .post("/api/v1/auth/create-token", userInfo)
+          .then((res) => {
+            const token = res.data?.token;
+            localStorage.setItem("token", token);
+            navigate(from, { replace: true });
+          })
+          .catch((error) => {
+            console.log(error);
           });
       })
       .catch((error) => {

@@ -11,7 +11,7 @@ import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import useAxios from "../hooks/useAxios";
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -43,18 +43,6 @@ const AuthProvider = ({ children }) => {
         console.log(currentUser);
         setUser(currentUser);
         setLoading(false);
-
-        //creating a token
-        const userInfo = { uid: currentUser.uid };
-        axiosCustom
-          .post("/api/v1/auth/create-token", userInfo)
-          .then((res) => {
-            const token = res.data?.token;
-            localStorage.setItem("token", token);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
       } else {
         setUser(null);
         setLoading(false);

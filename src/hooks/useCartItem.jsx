@@ -7,18 +7,23 @@ const useCartItem = () => {
   const { user } = useAuth();
 
   // fetching cart items for individual user
-  const { data: cartItems, refetch ,isPending } = useQuery({
+  const {
+    data: cartItems = [],
+    refetch,
+    isPending,
+  } = useQuery({
     queryKey: ["cart",user?.email],
     queryFn: async () => {
-      return axiosCustom
-        .get(`/api/v1/user/get-cart/${user?.uid}`)
-        .then((res) => {
-          return res.data;
-        });
+      if (user) {
+        const res = await axiosCustom.get(`/api/v1/user/get-cart/${user?.uid}`);
+        return res.data;
+      } else {
+        return [];
+      }
     },
   });
 
-  return [cartItems, refetch,isPending];
+  return [cartItems, refetch, isPending];
 };
 
 export default useCartItem;

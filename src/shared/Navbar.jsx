@@ -7,7 +7,7 @@ import { TbLogout } from "react-icons/tb";
 import useCartItem from "../hooks/useCartItem";
 const Navbar = () => {
   const { user, loading, userSignOut, setLoading } = useAuth();
-  const [cartItems] = useCartItem();
+  const [cartItems, , isCartLoading] = useCartItem();
 
   const focusRef = useRef();
 
@@ -31,10 +31,12 @@ const Navbar = () => {
             <NavLink to={"/dashboard/my-cart"}>
               <div className="flex items-center gap-1">
                 <FaShoppingCart className="text-2xl" />
-                <div className="badge badge-warning">
-                  {" "}
-                  +{cartItems?.length}{" "}
-                </div>
+                {isCartLoading || (
+                  <div className="badge badge-warning">
+                    {" "}
+                    +{cartItems?.length ? cartItems?.length : 0}{" "}
+                  </div>
+                )}
               </div>
             </NavLink>
           </>
@@ -102,7 +104,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end w-[70%] hidden lg:flex">
-          <ul className="menu menu-horizontal flex items-center font-extrabold  space-x-8">
+          <ul className="menu menu-horizontal flex items-center font-extrabold  space-x-8 mx-2 ">
             {navLinks}
           </ul>
           <div className="flex">

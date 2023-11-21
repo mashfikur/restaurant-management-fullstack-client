@@ -9,7 +9,7 @@ const Cart = () => {
   const [cartItems, refetch, isPending] = useCartItem();
   const axiosCustom = useAxios();
 
-  const totalPrice = cartItems?.reduce((total, item) => {
+  const totalPrice = cartItems.reduce((total, item) => {
     return total + item.price;
   }, 0);
 
@@ -50,7 +50,7 @@ const Cart = () => {
       ></SectionHeading>
 
       {isPending ? (
-        <div>loading</div>
+        <div className="w-[62rem] min-h-screen rounded-md  mx-auto bg-white rounded-md"></div>
       ) : (
         <div className="w-[62rem]  mx-auto  rounded-md bg-white p-14">
           <div className="capitalize font-cinzel flex items-center font-bold">

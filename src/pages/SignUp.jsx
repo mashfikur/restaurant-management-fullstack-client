@@ -10,11 +10,13 @@ import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import useAxios from "../hooks/useAxios";
 
 const Login = () => {
   const { createUser, setLoading, user, setUser, googleSignIn } = useAuth();
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const axiosCustom = useAxios();
 
   // form controls
   const {
@@ -43,14 +45,14 @@ const Login = () => {
             setUser({ ...user, displayName: data.name, photoURL: data.photo });
 
             // adding user to database
-            const usersInfo = {
-              name: result.user.displayName,
+            const userData = {
+              name: result.userData.displayName,
               email: result.user.email,
               uid: result.user.uid,
             };
 
             axiosPublic
-              .post("/api/v1/add-user", usersInfo)
+              .post("/api/v1/add-user", userData)
               .then((res) => {
                 console.log(res.data);
               })
@@ -58,7 +60,18 @@ const Login = () => {
                 console.error(error);
               });
 
-            navigate("/");
+            //creating a token
+            const userInfo = { uid: result.user.uid };
+            axiosCustom
+              .post("/api/v1/auth/create-token", userInfo)
+              .then((res) => {
+                const token = res.data?.token;
+                localStorage.setItem("token", token);
+                navigate("/");
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           })
           .catch((error) => {
             toast.error(error.code);
@@ -80,20 +93,33 @@ const Login = () => {
         toast.success("Created Account  Successfully");
 
         // adding user to databse
-        const userInfo = {
+        const userData = {
           name: result.user.displayName,
           email: result.user.email,
           uid: result.user.uid,
         };
 
         axiosPublic
-          .post("/api/v1/add-user", userInfo)
+          .post("/api/v1/add-user", userData)
           .then((res) => {
             console.log(res.data);
             navigate("/");
           })
           .catch((error) => {
             console.error(error);
+          });
+
+        //creating a token
+        const userInfo = { uid: result.user.uid };
+        axiosCustom
+          .post("/api/v1/auth/create-token", userInfo)
+          .then((res) => {
+            const token = res.data?.token;
+            localStorage.setItem("token", token);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
           });
       })
       .catch((error) => {

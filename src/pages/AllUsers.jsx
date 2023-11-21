@@ -14,7 +14,7 @@ const AllUsers = () => {
     queryKey: ["users", user?.email],
     queryFn: async () => {
       return axiosCustom
-        .get(`/api/v1/get-users/${user?.uid}`)
+        .get(`/api/v1/get-users`)
         .then((res) => {
           return res.data;
         })
