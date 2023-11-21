@@ -22,13 +22,24 @@ const Navbar = () => {
       <NavLink to={"/demo"}>CONTACT US</NavLink>
       <NavLink to={"/dashboard"}>DASHBOARD</NavLink>
       <NavLink to={"/our-menu"}>OUR MENU</NavLink>
-      <NavLink to={"/our-shop"}>OUR SHOP</NavLink>
-      <NavLink to={"/dashboard/my-cart"}>
-        <div className="flex items-center gap-1">
-          <FaShoppingCart className="text-2xl" />
-          <div className="badge badge-warning"> +{cartItems?.length} </div>
-        </div>
-      </NavLink>
+      {loading ? (
+        <div></div>
+      ) : (
+        user && (
+          <>
+            <NavLink to={"/our-shop"}>OUR SHOP</NavLink>
+            <NavLink to={"/dashboard/my-cart"}>
+              <div className="flex items-center gap-1">
+                <FaShoppingCart className="text-2xl" />
+                <div className="badge badge-warning">
+                  {" "}
+                  +{cartItems?.length}{" "}
+                </div>
+              </div>
+            </NavLink>
+          </>
+        )
+      )}
     </>
   );
 

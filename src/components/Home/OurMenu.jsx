@@ -6,7 +6,6 @@ import loader from "../../assets/others/loader3.gif";
 
 const OurMenu = ({ category }) => {
   const [menu, menuLoading] = useMenuData();
-  console.log(menu)
   const popular = menu.filter((data) => data.category === category);
 
   return (

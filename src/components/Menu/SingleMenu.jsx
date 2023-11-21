@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 const SingleMenu = ({ category }) => {
   const { setOrderedCategory } = useContext(SharedContext);
   const [menu] = useMenuData();
-  console.log(menu);
   const categoryData = menu.filter((data) => data.category === category);
 
   return (

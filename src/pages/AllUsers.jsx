@@ -4,15 +4,17 @@ import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import SectionHeading from "../components/SectionHeading";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
 
 const AllUsers = () => {
   const axiosCustom = useAxios();
+  const { user } = useAuth();
 
   const { data, refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", user?.email],
     queryFn: async () => {
       return axiosCustom
-        .get("/api/v1/get-users")
+        .get(`/api/v1/get-users/${user?.uid}`)
         .then((res) => {
           return res.data;
         })
@@ -74,12 +76,15 @@ const AllUsers = () => {
                     <td>
                       <div className="flex items-center gap-3">
                         <div>
-                          <div className="">{item.name}</div>
+                          <div className="font-semibold text-base">
+                            {item.name}{" "}
+                            {item.name === user.displayName && <>(You)</>}{" "}
+                          </div>
                         </div>
                       </div>
                     </td>
 
-                    <td>
+                    <td className="text-base">
                       <p> {item.email} </p>
                     </td>
 

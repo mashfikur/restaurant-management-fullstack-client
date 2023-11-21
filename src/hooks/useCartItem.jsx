@@ -8,7 +8,7 @@ const useCartItem = () => {
 
   // fetching cart items for individual user
   const { data: cartItems, refetch ,isPending } = useQuery({
-    queryKey: ["cart", user?.email],
+    queryKey: ["cart",user?.email],
     queryFn: async () => {
       return axiosCustom
         .get(`/api/v1/user/get-cart/${user?.uid}`)
