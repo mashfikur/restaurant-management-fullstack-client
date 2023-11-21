@@ -43,7 +43,7 @@ const Cart = () => {
   };
 
   return (
-    <div className=" max-h-screen  bg-[#F6F6F6] py-12">
+    <div className=" min-h-screen  bg-[#F6F6F6] py-12">
       <SectionHeading
         priamary={"WANNA ADD MORE?"}
         secondary={"---My Cart---"}
@@ -69,10 +69,10 @@ const Cart = () => {
 
           {/* cart items table */}
           <div>
-            <div className="overflow-x-auto overflow-y-auto h-[50vh]">
-              <table className="table  mt-5 ">
+            <div className="overflow-x-auto mt-5 overflow-y-auto h-[50vh]">
+              <table className="table">
                 {/* head */}
-                <thead className="bg-[#D1A054] rounded-t-md font-semibold  text-white custom-table ">
+                <thead className="bg-[#D1A054] rounded-t-md font-semibold  text-white custom-table  ">
                   <tr>
                     <th>ITEM IMAGE</th>
                     <th> ITEM Name</th>
@@ -81,7 +81,7 @@ const Cart = () => {
                     <th></th>
                   </tr>
                 </thead>
-                <tbody className="mt-5">
+                <tbody className="mt-5 ">
                   {cartItems?.map((item, idx) => (
                     <tr key={item._id}>
                       <th>{idx + 1}</th>

@@ -215,7 +215,7 @@ const Sidebar = () => {
             <li>
               {" "}
               <NavLink
-                to="/demo"
+                to="/"
                 className={({ isActive }) =>
                   isActive
                     ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
@@ -228,7 +228,7 @@ const Sidebar = () => {
             <li>
               {" "}
               <NavLink
-                to="/demo"
+                to="/our-menu"
                 className={({ isActive }) =>
                   isActive
                     ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "
@@ -241,7 +241,7 @@ const Sidebar = () => {
             <li>
               {" "}
               <NavLink
-                to="/demo"
+                to="/our-shop"
                 className={({ isActive }) =>
                   isActive
                     ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "

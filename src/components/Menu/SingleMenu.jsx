@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const SingleMenu = ({ category }) => {
   const { setOrderedCategory } = useContext(SharedContext);
   const [menu] = useMenuData();
+  console.log(menu);
   const categoryData = menu.filter((data) => data.category === category);
 
   return (
@@ -44,7 +45,13 @@ const SingleMenu = ({ category }) => {
         <Link to="/our-shop">
           <button
             onClick={() =>
-              setOrderedCategory(category === "soup" ? "soups" : category)
+              setOrderedCategory(
+                category === "soup"
+                  ? "soups"
+                  : category || category === "dessert"
+                  ? "desserts"
+                  : category
+              )
             }
             className="btn tracking-wide text-base btn-outline border-b-4 border-x-0 border-t-0"
           >

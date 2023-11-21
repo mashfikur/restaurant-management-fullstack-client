@@ -44,7 +44,7 @@ const Menu = () => {
         }
         img={dessertBg}
       ></SectionCover>
-      <SingleMenu category={"desserts"}></SingleMenu>
+      <SingleMenu category={"dessert"}></SingleMenu>
 
       {/* pizza section */}
       <SectionCover
