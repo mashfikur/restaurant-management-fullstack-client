@@ -60,7 +60,7 @@ const Sidebar = () => {
                     <li>
                       {" "}
                       <NavLink
-                        to="/demo"
+                        to="/dashboard/add-item"
                         className={({ isActive }) =>
                           isActive
                             ? "active-sidebar flex items-center gap-1  font-cinzel font-semibold "

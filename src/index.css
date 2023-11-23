@@ -54,3 +54,8 @@ body {
 .active-sidebar {
   color: white;
 }
+
+
+.select-field{
+  border-radius: 20px !important;
+}

@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const AdminRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+  const { user, loading, userSignOut } = useAuth();
   const [isAdmin, isAdminPending] = useCheckAdmin();
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,6 +23,9 @@ const AdminRoute = ({ children }) => {
   }
 
   toast.error("You don't have access to proceed");
+
+  // sign out the user
+  userSignOut();
 
   navigate("/login", { state: { from: location }, replace: true });
 
